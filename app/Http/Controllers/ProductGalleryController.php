@@ -53,7 +53,7 @@ class ProductGalleryController extends Controller
     {
         $data = $request->all();
         $data['photo'] = $request->file('photo')->store(
-            'asset/product','public'
+            'assets/product','public'
         );
 
         ProductGallery::create($data);
@@ -102,6 +102,9 @@ class ProductGalleryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = ProductGallery::findorfail($id);
+        $item->delete();
+
+        return redirect()->route('products-galleries.index');
     }
 }
