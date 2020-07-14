@@ -19,7 +19,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="type" class="form-control-label">Email</label>
+                    <label for="email" class="form-control-label">Email</label>
                     <input type="text" name="type" value="{{ old('email') ? old('email') : $item->email}}" 
                     class="form-control @error('email') is-invalid @enderror"/>
                     @error('email') 
@@ -37,8 +37,8 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="address" class="form-control-label">Harga Barang</label>
-                    <input type="nutextmber" name="address" value="{{ old('address') ? old('address') : $item->address }}" 
+                    <label for="address" class="form-control-label">Alamat Pemesan</label>
+                    <input type="address" name="address" value="{{ old('address') ? old('address') : $item->address }}" 
                     class="form-control @error('address') is-invalid @enderror"/>
                     @error('address') 
                     <div class="text-muted">{{ $message }}</div>

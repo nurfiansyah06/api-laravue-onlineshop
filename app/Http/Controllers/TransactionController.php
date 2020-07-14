@@ -77,7 +77,9 @@ class TransactionController extends Controller
     {
         $item = Transaction::findorfail($id);
 
-        return view('');
+        return view('pages.transaction.edit')->with([
+            'item' => $item
+        ]);
     }
 
     /**
@@ -89,7 +91,13 @@ class TransactionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        // $data['slug'] = Str::slug($request->name);
+
+        $item = Transaction::findorfail($id);
+        $item->update($data);
+
+        return redirect()->route('transactions.index');
     }
 
     /**
@@ -100,6 +108,25 @@ class TransactionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = Transaction::findorfail($id);
+        $item->delete();
+
+        // ProductGallery::where('products_id', $id)->delete();
+
+        return redirect()->route('transactions.index');
+    }
+
+    public function setStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|in:SUCCESS,PENDING,FAILED'
+        ]);
+
+        $item = Transaction::findorfail($id);
+        $item->transaction_status = $request->status;
+
+        $item->save();
+
+    return redirect()->route('transactions.index');
     }
 }
